@@ -1,0 +1,20 @@
+function main_IMOHBA
+
+clear;clc
+fname={'ZDT1';'ZDT2';'ZDT3';'ZDT4';'ZDT6';'DTLZ1';'DTLZ2';'DTLZ3';'DTLZ4';'DTLZ5';'DTLZ6';'MMF1';'MMF2';
+    'MMF3';'MMF4';'MMF5';'MMF6';'MMF7';'MMF8'};
+num=length(fname); % number of test function
+for i=15:15
+    name=fname{i,:};
+    num_of_runs=20;          %number of run times
+    pop=100;gen=400;         %Population size and Total number of generations
+    for runs = 1:num_of_runs 
+        fprintf('number of run times:%d\n',runs)
+        [metric_IMOHBA,archive_IMOHBA]=IMOHBA(name,pop,gen,runs); %IMOHBA(name,nVar,pop,gen,runs);
+        IMOHBA_metric(runs,1)=metric_IMOHBA;
+        IMOHBA_archive(runs,1).dyIP=archive_IMOHBA;
+    end
+    str = strcat(name,'_metric_IMOHBA','.mat');
+    save(['data\',str],'IMOHBA_metric');
+end
+        
